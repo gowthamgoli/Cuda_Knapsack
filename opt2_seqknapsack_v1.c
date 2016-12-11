@@ -7,7 +7,7 @@ int max(int a, int b){
 	return (a > b)? a : b;
 }
 
-void knapsack(int capacity, int profits[], int weights[], int n, int *f, int *M){
+void knapsack(int capacity, int profits[], int weights[], int n, int *f){
 	int sumW = 0;
 	int i,c,p; 
 
@@ -21,23 +21,22 @@ void knapsack(int capacity, int profits[], int weights[], int n, int *f, int *M)
 		sumW = sumW - weights[k-1];
 		c = max(capacity-sumW, weights[k-1]);
 		//printf("%d %d\n", sumW, c);
-		//printf("%d\n", c);
 		for(p=capacity; p>=c; p--){
 			if(f[p] < f[p-weights[k-1]] + profits[k-1]){
 				f[p] = f[p-weights[k-1]] + profits[k-1];
-				M[index(k,p,capacity)] = 1;
+				//M[index(k,p,capacity)] = 1;
 			}
 		}
 		/*int t;
 		for(t=0; t<=capacity; t++)	printf("%d ", f[t]);
-		printf("\n");*/	
+		printf("\n");*/
 		k++;
 	}
 
 	//for(i=0; i<=capacity; i++)
 	printf("%d ", f[capacity]);
 	printf("\n");
-	int sum = 0;
+	/*int sum = 0;
 
 	c = capacity;
 	i = n;
@@ -52,7 +51,7 @@ void knapsack(int capacity, int profits[], int weights[], int n, int *f, int *M)
 		c = c-weights[i-1];
 		i = i-1;	
 	}
-	printf("\n");
+	printf("\n");*/
 
 	/*for(i=1; i<=n; i++){
 		if(M[i][capacity] == 1)	{
@@ -60,7 +59,7 @@ void knapsack(int capacity, int profits[], int weights[], int n, int *f, int *M)
 			sum = sum + profits[i-1];
 		}
 	}*/
-	printf("%d ", sum);
+	//printf("%d ", sum);
 	/*for(i=0; i<=n; i++){
 		for(c=0; c<= capacity; c++){
 			printf("%d ", M[index(i,c,capacity)]);
@@ -73,7 +72,7 @@ void knapsack(int capacity, int profits[], int weights[], int n, int *f, int *M)
 int main(){
 
 	int i,j;
-	int n = 10000;
+	int n = 30000;
 	int *profits = (int*)malloc(n*sizeof(int));
 	int *weights = (int*)malloc(n*sizeof(int));
 
@@ -90,29 +89,22 @@ int main(){
 	for(i=0; i<n; i++){
 		capacity = capacity + weights[i];
 	}
-	//capacity = capacity/2;
-	capacity = 214000;
+	capacity = capacity/2;
+	//capacity = 1000;
+
 	printf("capacity = %d\n", capacity);
 
 	int *f = (int*)malloc((capacity+1)*sizeof(int));
-	int *M = (int*)calloc((n+1)*(capacity+1), sizeof(int*));
+	//int *M = (int*)calloc((n+1)*(capacity+1), sizeof(int*));
 	
 
 	for(i=0; i<=capacity; i++){
 		f[i] = 0;
 	}
-
-	for(i=0; i<=n; i++){
-		for(j=0; j<=capacity; j++){
-			M[index(i,j,capacity)] = M[index(i,j,capacity)] + 1;
-		}
-	}
 	
-	//knapsack(capacity, profits, weights, n, f, M);
+	knapsack(capacity, profits, weights, n, f);
 
 	free(f);
-	free(M);
-
-	return 0;
+	//free(M);
 
 }

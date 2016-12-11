@@ -20,12 +20,13 @@ void knapsack(int capacity, int profits[], int weights[], int n){
 		}
 	}
 
-	for(i=0; i<=n ; i++){
+	/*for(i=0; i<=n ; i++){
 		for(c=0; c<=capacity; c++){
 			printf("%d ", f[i][c]);
 		}
 		printf("\n");
-	}
+	}*/
+	printf("%d\n", f[n][capacity]);
 }
 
 int main(){
@@ -42,7 +43,7 @@ int main(){
     {
         fscanf(myFile, "%d %d", &profits[i], &weights[i]);
     }
-	int capacity = 1000;
+	int capacity = 1500;
 
 	knapsack(capacity, profits, weights, n);
 

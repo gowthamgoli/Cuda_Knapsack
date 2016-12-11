@@ -87,7 +87,7 @@ void knapsackCuda(int *profits, int *weights, int capacity, int n, int *f0, int 
 
 int main() {
     int i;
-	int n = 30000;
+	int n = 10000;
 	int *profits = (int*)malloc(n*sizeof(int));
 	int *weights = (int*)malloc(n*sizeof(int));
 
@@ -104,7 +104,7 @@ int main() {
 		capacity = capacity + weights[i];
 	}
 	capacity = capacity/2;
-	//capacity = 250000;
+	//capacity = 1000;
 
 	printf("capacity = %d\n", capacity);
 
